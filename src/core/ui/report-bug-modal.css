@@ -1,0 +1,90 @@
+.fl-report-bug {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* 380px in the options page's Modal (plenty of room there); max-width: 100% lets it shrink to
+     fit instead in the popup, which embeds this directly in its own body with no modal chrome —
+     see Popup.tsx. */
+  width: 380px;
+  max-width: 100%;
+  padding: 24px;
+  background: var(--fl-surface);
+  border-radius: var(--fl-radius-lg);
+  box-sizing: border-box;
+}
+
+/* Popup mode: no separate white card floating on the popup's own background — .fl-popup-body
+   already supplies the page background and its own padding, so this just sits directly in it. */
+.fl-report-bug--compact {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.fl-report-bug__title {
+  margin: 0;
+  font-family: var(--fl-font-heading);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.44px;
+  color: var(--fl-text-primary);
+}
+
+.fl-report-bug__hint {
+  margin: -12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fl-text-tertiary);
+}
+
+.fl-report-bug__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fl-report-bug__field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fl-text-secondary);
+}
+
+.fl-report-bug__input {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: var(--fl-radius-sm);
+  border: 1px solid var(--fl-border);
+  font-size: 14px;
+  font-family: var(--fl-font-body);
+  color: var(--fl-text-primary);
+  background: var(--fl-surface);
+}
+
+.fl-report-bug__textarea {
+  height: auto;
+  padding: 12px 14px;
+  resize: vertical;
+  font-family: var(--fl-font-body);
+}
+
+.fl-report-bug__input:focus {
+  outline: none;
+  border-color: var(--fl-accent);
+}
+
+.fl-report-bug__error {
+  margin: 0;
+  font-size: 12px;
+  color: var(--fl-danger);
+}
+
+.fl-report-bug__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.fl-report-bug__actions .fl-btn {
+  flex: 1;
+}

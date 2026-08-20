@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  background: var(--fl-bg);
+  font-family: var(--fl-font-body);
+  color: var(--fl-text-primary);
+}
+
+.fl-blocked {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.fl-blocked-card {
+  background: var(--fl-surface);
+  border-radius: var(--fl-radius-lg);
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.08);
+  padding: 48px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+}
+
+.fl-blocked-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--fl-danger);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.fl-blocked-title {
+  margin: 24px 0 0;
+  font-family: var(--fl-font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--fl-text-primary);
+}
+
+.fl-blocked-url {
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  color: var(--fl-text-secondary);
+  word-break: break-all;
+}
+
+.fl-blocked-message {
+  margin: 28px 0 0;
+  font-size: 14.5px;
+  color: var(--fl-text-tertiary);
+  max-width: 360px;
+}
+
+.fl-blocked-button {
+  margin-top: 32px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: none;
+  background: var(--fl-accent);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.fl-blocked-button:hover {
+  background: var(--fl-accent-hover);
+}

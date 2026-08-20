@@ -1,0 +1,79 @@
+.fl-limiter-form {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--fl-surface);
+  border-radius: var(--fl-radius-lg);
+  padding: 14px 24px 14px 14px;
+  min-height: 64px;
+}
+
+.fl-limiter-form__label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fl-text-primary);
+  white-space: nowrap;
+}
+
+.fl-limiter-form__time-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fl-limiter-form__time-input {
+  width: 64px;
+  height: 42px;
+  padding: 0 10px;
+  border-radius: var(--fl-radius-sm);
+  border: 1px solid var(--fl-border);
+  font-size: 14px;
+  font-family: var(--fl-font-body);
+  color: var(--fl-text-primary);
+}
+
+.fl-limiter-form__time-input::placeholder {
+  color: var(--fl-text-tertiary);
+}
+
+.fl-limiter-form__time-label {
+  font-size: 14px;
+  color: var(--fl-text-tertiary);
+  white-space: nowrap;
+}
+
+.fl-limiter-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 174px;
+  flex-shrink: 0;
+}
+
+.fl-limiter-progress__labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--fl-text-secondary);
+}
+
+.fl-limiter-progress__bar {
+  height: 6px;
+  border-radius: var(--fl-radius-pill);
+  /* bg/soft-200 in the Figma file — a distinct track color from --fl-chip-bg used elsewhere. */
+  background: #ebebeb;
+  overflow: hidden;
+}
+
+.fl-limiter-progress__fill {
+  height: 100%;
+  border-radius: var(--fl-radius-pill);
+  /* state/information/base in the Figma file — a distinct blue from --fl-accent. */
+  background: #335cff;
+}
+
+.fl-limiter-progress__fill--full {
+  background: var(--fl-danger);
+}

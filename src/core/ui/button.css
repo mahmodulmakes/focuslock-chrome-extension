@@ -1,0 +1,36 @@
+.fl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 10px 18px;
+  border-radius: var(--fl-radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s ease;
+}
+
+.fl-btn--primary {
+  background: var(--fl-accent);
+  color: #ffffff;
+}
+.fl-btn--primary:hover {
+  background: var(--fl-accent-hover);
+}
+
+.fl-btn--secondary {
+  background: var(--fl-chip-bg);
+  border-color: var(--fl-border);
+  color: var(--fl-text-primary);
+}
+.fl-btn--secondary:hover {
+  background: var(--fl-border);
+}
+
+.fl-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

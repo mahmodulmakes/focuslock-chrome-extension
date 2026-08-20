@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "FocusLock",
+  "version": "2.0.0",
+  "description": "Block distracting sites, reels, and feeds — with optional password protection.",
+  "permissions": ["storage", "webNavigation", "tabs", "alarms", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.instagram.com/*",
+        "*://*.youtube.com/*",
+        "*://*.reddit.com/*",
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.linkedin.com/*"
+      ],
+      "js": ["src/content-scripts/feed-blocks.ts"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "options_page": "src/options/index.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["src/blocked/index.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "public/icons/icon16.png",
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  }
+}

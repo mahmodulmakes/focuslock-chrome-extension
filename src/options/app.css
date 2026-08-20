@@ -1,0 +1,28 @@
+.fl-shell {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: var(--fl-bg);
+}
+
+.fl-content {
+  flex: 1;
+  min-width: 0;
+  padding: 40px 36px;
+}
+
+.fl-placeholder {
+  padding: 60px 8px;
+  color: var(--fl-text-tertiary);
+}
+
+.fl-placeholder__title {
+  font-family: var(--fl-font-heading);
+  font-size: 20px;
+  color: var(--fl-text-primary);
+  margin: 0 0 8px;
+}
+
+.fl-placeholder__body {
+  margin: 0;
+}

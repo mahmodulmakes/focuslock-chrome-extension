@@ -1,0 +1,45 @@
+/* Design tokens pulled from the Figma file (light theme). Extend, don't replace. */
+:root {
+  --fl-bg: #f7f8fa;
+  --fl-surface: #ffffff;
+  --fl-chip-bg: #eef1f5;
+  --fl-border: #e2e5ea;
+
+  --fl-text-primary: #14161a;
+  --fl-text-secondary: #5b6069;
+  --fl-text-tertiary: #9aa0ac;
+
+  --fl-accent: #4d7cff;
+  --fl-accent-hover: #3a68f0;
+  --fl-accent-tint-10: rgba(77, 124, 255, 0.1);
+
+  --fl-danger: #dc3a3a;
+  --fl-danger-tint: rgba(220, 58, 58, 0.1);
+  --fl-warning: #ffaa2a;
+
+  --fl-radius-sm: 6px;
+  --fl-radius-md: 10px;
+  --fl-radius-lg: 12px;
+  --fl-radius-pill: 9999px;
+
+  /* Font files aren't bundled yet — this falls back to the OS UI font until Inter /
+     Hanken Grotesk are self-hosted (loading them remotely from an extension page isn't
+     great practice; do this before shipping). */
+  --fl-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fl-font-heading: "Hanken Grotesk", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fl-font-body);
+  color: var(--fl-text-primary);
+  background: var(--fl-bg);
+}
+
+button {
+  font-family: inherit;
+}
