@@ -1,0 +1,9 @@
+name = "focuslock-report-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[vars]
+TURSO_DATABASE_URL = "libsql://focuslook-extension-mahmodulmakes.aws-ap-south-1.turso.io"
+
+[observability]
+enabled = true

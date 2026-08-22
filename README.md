@@ -232,27 +232,49 @@ also renders inline (no modal chrome) inside the popup — see the `compact` pro
 `ReportBugForm`.
 
 There's no backend built into a Chrome extension by itself — every install only has its own local
-storage. To actually collect submissions from real users, both features best-effort `fetch()`-POST
-to whatever URL is set as `REPORT_ENDPOINT_URL` in `core/remote-submit.ts`, tagged with a `type`
-field (`"bug-report"` or `"feed-request"`) so a shared backend can route them separately. The
-request uses `mode: "no-cors"` since Apps Script Web Apps don't return CORS headers — the request
-still executes server-side even though the response is unreadable from the extension.
+storage. To actually collect submissions from real users, both features `fetch()`-POST to
+whatever URL is set as `REPORT_ENDPOINT_URL` in `core/remote-submit.ts`, tagged with a `type`
+field (`"bug-report"` or `"feed-request"`) so the backend can route them into separate tables.
 
-Setting up the recommended endpoint (free, no server code, one Google account) — a Google Sheets
-**Apps Script Web App** that appends each submission as a row and emails the developer:
+**Backend: a Turso (libSQL/SQLite) database, fronted by a Cloudflare Worker** — source in
+`worker/`, deployed separately from the extension itself. A Chrome extension can't talk to a
+database directly: any database credential embedded in the extension's code would be visible to
+anyone who inspects it (extensions ship as plain, unobfuscated JS), letting them read or write the
+whole database. The Worker exists to hold that credential server-side — it's a public endpoint
+with no secret embedded in the client, same shape as a typical form-submission backend:
 
-1. Create a Google Sheet.
-2. **Extensions → Apps Script**, add a `doPost(e)` function that parses `e.postData.contents` as
-   JSON, branches on `data.type` to append to the right sheet tab, and calls `MailApp.sendEmail()`.
-3. **Deploy → New deployment → Web app**, with **Execute as: Me** and **Who has access: Anyone**
-   (must be "Anyone", not "Anyone with a Google account" — the extension calls it anonymously).
-4. Authorize the script when prompted.
-5. Copy the deployed Web app URL (`https://script.google.com/macros/s/.../exec`) into
-   `REPORT_ENDPOINT_URL`.
-
-Editing the script's code later requires **Deploy → Manage deployments → edit (pencil) icon →
-Version: New version → Deploy** to push the change to the existing URL — saving in the editor
-alone does not update the live deployment.
+- `worker/src/index.ts` — the Worker itself: validates the POST body, inserts into `bug_reports`
+  or `feed_requests` depending on `type`, returns `{ ok: true }` on success. Sends real CORS
+  headers (`Access-Control-Allow-Origin: *`), so `remote-submit.ts` uses a normal `fetch()` and
+  can read back whether the write actually succeeded — not just that the request was sent.
+- **Schema** (already created in the live database):
+  ```sql
+  CREATE TABLE bug_reports (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, description TEXT, submitted_at TEXT
+  );
+  CREATE TABLE feed_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, platform TEXT, submitted_at TEXT
+  );
+  ```
+- **To browse/manage submissions**: [app.turso.tech](https://app.turso.tech) → the
+  `focuslook-extension` database → `bug_reports` / `feed_requests` tables. Full table UI (browse,
+  search, edit, delete) — no spreadsheet or custom admin panel needed. Same data is also reachable
+  from a terminal: `turso db shell focuslook-extension "SELECT * FROM bug_reports;"`.
+- **Redeploying the Worker after a code change**:
+  ```bash
+  cd worker
+  npm install       # first time only
+  npx wrangler deploy
+  ```
+  The Turso auth token lives only as a Cloudflare secret (`wrangler secret put TURSO_AUTH_TOKEN`),
+  never in this repo or in the extension bundle. `TURSO_DATABASE_URL` is not secret (it's just a
+  hostname) and is checked into `worker/wrangler.toml`.
+- **Setting this up from scratch** (if the database/Worker are ever recreated): `turso db create`,
+  then run the two `CREATE TABLE` statements above via `turso db shell`, then
+  `turso db tokens create <db-name>` for a fresh auth token, then in `worker/`: `wrangler login`,
+  `wrangler secret put TURSO_AUTH_TOKEN` (paste the token), set `TURSO_DATABASE_URL` in
+  `wrangler.toml` to the database's `libsql://...` URL, then `wrangler deploy`. Copy the resulting
+  `https://*.workers.dev` URL into `REPORT_ENDPOINT_URL`.
 
 ## Known gaps and decisions
 
