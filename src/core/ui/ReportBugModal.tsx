@@ -1,7 +1,7 @@
 // Shared "Report a Bug" form — used by both the sidebar (options page) and the popup, so it
 // lives in core rather than either one. Every submission is always saved locally first (see
-// core/bug-reports.ts); once REPORT_ENDPOINT_URL there is set, it's also best-effort sent to a
-// Google Apps Script Web App that records it in a Sheet and emails the developer.
+// core/bug-reports.ts); once REPORT_ENDPOINT_URL there is set, it's also best-effort sent to the
+// Cloudflare Worker in worker/, which writes it into a Turso database.
 //
 // ReportBugForm is the content only, no modal chrome — the options page wraps it in the shared
 // Modal (ReportBugModal, below); the popup embeds it directly in its own body instead, since a

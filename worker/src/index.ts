@@ -1,7 +1,7 @@
 // Public write-only endpoint for FocusLock's "Report Bug" and "Request New Feed" forms.
 // Holds the Turso auth token server-side (as a Wrangler secret) so the extension itself never
-// carries a credential — same public-endpoint-no-embedded-secret shape as the Apps Script setup
-// this replaces, just backed by a real SQL database instead of a Google Sheet.
+// carries a credential — a Chrome extension can't hold a database credential of its own, since
+// its code ships unobfuscated and anyone could extract it.
 import { createClient } from "@libsql/client/web";
 
 export interface Env {

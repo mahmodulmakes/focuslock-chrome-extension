@@ -6,9 +6,9 @@
 //
 // Every report is always saved locally first (reliable regardless of network), and — once
 // REPORT_ENDPOINT_URL in remote-submit.ts is set — also best-effort sent there, tagged
-// type: "bug-report" so the Apps Script backend keeps these separate from feed-requests.ts'
-// submissions. Left empty, the extension behaves exactly as before: local-only, exportable as
-// CSV on request.
+// type: "bug-report" so the Turso/Cloudflare Worker backend (see worker/) keeps these separate
+// from feed-requests.ts' submissions. Left empty, the extension behaves exactly as before:
+// local-only, exportable as CSV on request.
 import { submitToEndpoint } from "./remote-submit";
 
 export interface BugReport {
